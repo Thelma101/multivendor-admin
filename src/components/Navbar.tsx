@@ -29,14 +29,14 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <Disclosure as="nav" className="bg-white shadow-sm">
+    <Disclosure as="nav" className="bg-white shadow-sm fixed w-full top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <span className="text-2xl font-bold text-[#00838F]">I-Thee-Wed</span>
+                  <span className="text-xl sm:text-2xl font-bold text-[#00838F]">I-Thee-Wed</span>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.map((item) => {
@@ -142,7 +142,7 @@ export default function Navbar() {
                     3
                   </span>
                 </button>
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-[#00838F] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F] border border-[#00838F]/20">
+                <Disclosure.Button className="relative z-[100] inline-flex items-center justify-center rounded-md p-2 text-[#00838F] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F] border border-[#00838F]/20 bg-white shadow-sm">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -154,7 +154,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="sm:hidden absolute w-full bg-white shadow-lg">
             <div className="space-y-1 pb-3 pt-2">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href

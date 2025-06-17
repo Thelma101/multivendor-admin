@@ -224,24 +224,24 @@ export default function Dashboard() {
   const [selectedChartPeriod, setSelectedChartPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10">
+    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10 pt-16">
       {/* Header Section */}
-      <div className="border-b border-[#00838F]/10 bg-gradient-to-r from-[#CCFDF2] to-white px-6 py-8">
+      <div className="border-b border-[#00838F]/10 bg-gradient-to-r from-[#CCFDF2] to-white px-4 sm:px-6 py-6 sm:py-8">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-[#00838F]">Dashboard</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#00838F]">Dashboard</h1>
               <p className="mt-2 text-sm text-[#B52344]">
                 Welcome back! Here's what's happening with your wedding platform.
               </p>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2 rounded-lg bg-white p-1 shadow-sm ring-1 ring-inset ring-[#00838F]/20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex gap-2 rounded-lg bg-white p-1 shadow-sm ring-1 ring-inset ring-[#00838F]/20 w-full sm:w-auto">
                 {(['week', 'month', 'year'] as const).map((period) => (
                   <button
                     key={period}
                     type="button"
-                    className={`rounded-md px-3 py-1.5 text-sm font-medium ${
+                    className={`rounded-md px-3 py-1.5 text-sm font-medium flex-1 sm:flex-none ${
                       selectedPeriod === period
                         ? 'bg-[#00838F] text-white'
                         : 'text-[#00838F] hover:bg-[#CCFDF2]'
@@ -254,7 +254,7 @@ export default function Dashboard() {
               </div>
               <button
                 type="button"
-                className="inline-flex items-center gap-x-1.5 rounded-lg bg-[#00838F] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#00838F]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00838F]"
+                className="inline-flex items-center gap-x-1.5 rounded-lg bg-[#00838F] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#00838F]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00838F] w-full sm:w-auto justify-center"
               >
                 <BellIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                 View Notifications
@@ -265,13 +265,13 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-6 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {metrics.map((metric) => (
             <div
               key={metric.id}
-              className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#00838F]/10 transition-all hover:shadow-md"
+              className="group relative overflow-hidden rounded-2xl bg-white p-4 sm:p-6 shadow-sm ring-1 ring-[#00838F]/10 transition-all hover:shadow-md"
             >
               <div className="flex items-center justify-between">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#CCFDF2] group-hover:bg-[#00838F] group-hover:text-white transition-colors">
