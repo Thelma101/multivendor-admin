@@ -1,26 +1,32 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
   XMarkIcon,
-  UserCircleIcon,
-  BellIcon,
+  HomeIcon,
+  ChartBarIcon,
+  BuildingStorefrontIcon,
+  UserGroupIcon,
+  ChatBubbleLeftRightIcon,
+  DocumentTextIcon,
   Cog6ToothIcon,
-  ArrowRightOnRectangleIcon,
+  BellIcon,
 } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Vendors', href: '/vendors' },
-  { name: 'Couples', href: '/couples' },
-  { name: 'Bookings', href: '/bookings' },
-  { name: 'Reports', href: '/reports' },
-  { name: 'Settings', href: '/settings' },
+  { name: 'Dashboard', href: '/', icon: HomeIcon },
+  { name: 'Reports', href: '/reports', icon: ChartBarIcon },
+  { name: 'Vendors', href: '/vendors', icon: BuildingStorefrontIcon },
+  { name: 'Couples', href: '/couples', icon: UserGroupIcon },
+  { name: 'Disputes', href: '/disputes', icon: ChatBubbleLeftRightIcon },
+  { name: 'CMS', href: '/cms', icon: DocumentTextIcon },
+  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon },
 ]
 
 export default function Navbar() {
   const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <Disclosure as="nav" className="bg-white shadow-sm">
@@ -30,34 +36,36 @@ export default function Navbar() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link to="/dashboard" className="text-2xl font-bold text-[#00838F]">
-                    i-thee-wed
-                  </Link>
+                  <span className="text-2xl font-bold text-[#00838F]">I-Thee-Wed</span>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
-                        location.pathname === item.href
-                          ? 'border-[#00838F] text-[#00838F]'
-                          : 'border-transparent text-[#B52344] hover:border-[#00838F]/50 hover:text-[#00838F]'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {navigation.map((item) => {
+                    const isActive = location.pathname === item.href
+                    return (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${
+                          isActive
+                            ? 'border-[#00838F] text-[#00838F]'
+                            : 'border-transparent text-gray-500 hover:border-[#00838F]/50 hover:text-[#00838F]'
+                        }`}
+                      >
+                        <item.icon className="mr-2 h-5 w-5" aria-hidden="true" />
+                        {item.name}
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <button
                   type="button"
-                  className="relative rounded-full bg-white p-1 text-[#B52344] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2"
+                  className="relative rounded-full bg-white p-1 text-[#00838F] hover:text-[#00838F]/80 focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#EB1948] text-xs text-white">
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#EB1948] text-xs text-white">
                     3
                   </span>
                 </button>
@@ -67,7 +75,9 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2">
                       <span className="sr-only">Open user menu</span>
-                      <UserCircleIcon className="h-8 w-8 text-[#00838F]" aria-hidden="true" />
+                      <div className="h-8 w-8 rounded-full bg-[#CCFDF2] flex items-center justify-center">
+                        <span className="text-[#00838F] font-medium">JD</span>
+                      </div>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -82,47 +92,56 @@ export default function Navbar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to="/profile"
-                            className={`${
-                              active ? 'bg-[#CCFDF2]' : ''
-                            } block px-4 py-2 text-sm text-[#00838F]`}
+                          <a
+                            href="#"
+                            className={`block px-4 py-2 text-sm ${
+                              active ? 'bg-[#CCFDF2] text-[#00838F]' : 'text-gray-700'
+                            }`}
                           >
                             Your Profile
-                          </Link>
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to="/settings"
-                            className={`${
-                              active ? 'bg-[#CCFDF2]' : ''
-                            } block px-4 py-2 text-sm text-[#00838F]`}
+                          <a
+                            href="#"
+                            className={`block px-4 py-2 text-sm ${
+                              active ? 'bg-[#CCFDF2] text-[#00838F]' : 'text-gray-700'
+                            }`}
                           >
                             Settings
-                          </Link>
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <button
-                            type="button"
-                            className={`${
-                              active ? 'bg-[#CCFDF2]' : ''
-                            } block w-full px-4 py-2 text-left text-sm text-[#EB1948]`}
+                          <a
+                            href="#"
+                            className={`block px-4 py-2 text-sm ${
+                              active ? 'bg-[#CCFDF2] text-[#00838F]' : 'text-gray-700'
+                            }`}
                           >
                             Sign out
-                          </button>
+                          </a>
                         )}
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
               </div>
-              <div className="-mr-2 flex items-center sm:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-[#B52344] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F]">
+              <div className="flex items-center sm:hidden">
+                <button
+                  type="button"
+                  className="relative rounded-full bg-white p-1 text-[#00838F] hover:text-[#00838F]/80 focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#EB1948] text-xs text-white">
+                    3
+                  </span>
+                </button>
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-[#00838F] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F]">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -136,59 +155,58 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as={Link}
-                  to={item.href}
-                  className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium ${
-                    location.pathname === item.href
-                      ? 'border-[#00838F] bg-[#CCFDF2] text-[#00838F]'
-                      : 'border-transparent text-[#B52344] hover:border-[#00838F]/50 hover:bg-[#CCFDF2] hover:text-[#00838F]'
-                  }`}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {navigation.map((item) => {
+                const isActive = location.pathname === item.href
+                return (
+                  <Disclosure.Button
+                    key={item.name}
+                    as={Link}
+                    to={item.href}
+                    className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium ${
+                      isActive
+                        ? 'border-[#00838F] bg-[#CCFDF2] text-[#00838F]'
+                        : 'border-transparent text-gray-500 hover:border-[#00838F]/50 hover:bg-[#CCFDF2]/50 hover:text-[#00838F]'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <item.icon className="mr-3 h-6 w-6" aria-hidden="true" />
+                      {item.name}
+                    </div>
+                  </Disclosure.Button>
+                )
+              })}
             </div>
-            <div className="border-t border-[#00838F]/10 pb-3 pt-4">
+            <div className="border-t border-gray-200 pb-3 pt-4">
               <div className="flex items-center px-4">
                 <div className="flex-shrink-0">
-                  <UserCircleIcon className="h-10 w-10 text-[#00838F]" aria-hidden="true" />
+                  <div className="h-10 w-10 rounded-full bg-[#CCFDF2] flex items-center justify-center">
+                    <span className="text-[#00838F] font-medium">JD</span>
+                  </div>
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-[#00838F]">Admin User</div>
-                  <div className="text-sm font-medium text-[#B52344]">admin@example.com</div>
+                  <div className="text-base font-medium text-[#00838F]">John Doe</div>
+                  <div className="text-sm font-medium text-gray-500">john@example.com</div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-[#B52344] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#EB1948] text-xs text-white">
-                    3
-                  </span>
-                </button>
               </div>
               <div className="mt-3 space-y-1">
                 <Disclosure.Button
-                  as={Link}
-                  to="/profile"
-                  className="block px-4 py-2 text-base font-medium text-[#B52344] hover:bg-[#CCFDF2] hover:text-[#00838F]"
+                  as="a"
+                  href="#"
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-[#CCFDF2] hover:text-[#00838F]"
                 >
                   Your Profile
                 </Disclosure.Button>
                 <Disclosure.Button
-                  as={Link}
-                  to="/settings"
-                  className="block px-4 py-2 text-base font-medium text-[#B52344] hover:bg-[#CCFDF2] hover:text-[#00838F]"
+                  as="a"
+                  href="#"
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-[#CCFDF2] hover:text-[#00838F]"
                 >
                   Settings
                 </Disclosure.Button>
                 <Disclosure.Button
-                  as="button"
-                  className="block w-full px-4 py-2 text-left text-base font-medium text-[#EB1948] hover:bg-[#CCFDF2]"
+                  as="a"
+                  href="#"
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-[#CCFDF2] hover:text-[#00838F]"
                 >
                   Sign out
                 </Disclosure.Button>
