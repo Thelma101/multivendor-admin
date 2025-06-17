@@ -8,16 +8,20 @@ import {
   VideoCameraIcon,
   PencilIcon,
   TrashIcon,
+  PencilSquareIcon,
 } from '@heroicons/react/24/outline'
+import CMSModal from '../components/CMSModal'
 
 interface Content {
   id: number
   title: string
-  type: 'Blog Post' | 'Image' | 'Video'
-  status: 'Published' | 'Draft' | 'Archived'
+  type: 'Blog Post' | 'Image' | 'Video' | 'text' | 'image' | 'video'
+  status: 'Published' | 'Draft' | 'Archived' | 'published' | 'draft'
   author: string
   date: string
   category: string
+  content: string
+  lastUpdated: string
 }
 
 const contents: Content[] = [
@@ -29,6 +33,8 @@ const contents: Content[] = [
     author: 'Jane Smith',
     date: '2024-03-15',
     category: 'Trends',
+    content: 'Welcome to I-Thee-Wed, your premier wedding planning platform...',
+    lastUpdated: '2024-03-15T10:30:00',
   },
   {
     id: 2,
@@ -38,6 +44,8 @@ const contents: Content[] = [
     author: 'John Doe',
     date: '2024-03-14',
     category: 'Tips & Advice',
+    content: 'https://example.com/video.mp4',
+    lastUpdated: '2024-03-14T15:45:00',
   },
   {
     id: 3,
@@ -47,6 +55,8 @@ const contents: Content[] = [
     author: 'Sarah Johnson',
     date: '2024-03-13',
     category: 'Inspiration',
+    content: 'https://example.com/banner.jpg',
+    lastUpdated: '2024-03-13T09:20:00',
   },
   {
     id: 4,
@@ -56,6 +66,8 @@ const contents: Content[] = [
     author: 'Mike Wilson',
     date: '2024-03-12',
     category: 'Planning',
+    content: 'Welcome to I-Thee-Wed, your premier wedding planning platform...',
+    lastUpdated: '2024-03-12T10:30:00',
   },
 ]
 
@@ -63,6 +75,9 @@ export default function CMS() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState<string>('all')
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
+  const [selectedContent, setSelectedContent] = useState<Content | null>(null)
+  const [isCMSModalOpen, setIsCMSModalOpen] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
 
   const filteredContents = contents.filter((content) => {
     const matchesSearch = 
@@ -73,6 +88,21 @@ export default function CMS() {
     const matchesStatus = selectedStatus === 'all' || content.status === selectedStatus
     return matchesSearch && matchesType && matchesStatus
   })
+
+  const handleSaveContent = async (content: string) => {
+    if (!selectedContent) return
+    setIsSaving(true)
+    try {
+      // Implement save logic here
+      console.log('Saving content:', content)
+      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulated API call
+    } catch (error) {
+      console.error('Error saving content:', error)
+    } finally {
+      setIsSaving(false)
+      setIsCMSModalOpen(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10">
@@ -192,6 +222,10 @@ export default function CMS() {
                 <div className="flex gap-2">
                   <button
                     type="button"
+                    onClick={() => {
+                      setSelectedContent(content)
+                      setIsCMSModalOpen(true)
+                    }}
                     className="rounded-lg bg-[#ECEBA2] p-2 text-[#B52344] hover:bg-[#ECEBA2]/80"
                   >
                     <PencilIcon className="h-5 w-5" aria-hidden="true" />
@@ -208,6 +242,15 @@ export default function CMS() {
           </div>
         ))}
       </div>
+
+      {/* CMS Modal */}
+      <CMSModal
+        isOpen={isCMSModalOpen}
+        onClose={() => setIsCMSModalOpen(false)}
+        title={`Edit ${selectedContent?.title || 'Content'}`}
+        content={selectedContent?.content || ''}
+        onSave={handleSaveContent}
+      />
     </div>
   )
 } 

@@ -20,7 +20,7 @@ interface Dispute {
   description: string
   status: 'Open' | 'In Progress' | 'Resolved' | 'Closed'
   priority: 'High' | 'Medium' | 'Low'
-  type: 'Payment' | 'Service' | 'Booking' | 'Other'
+  type: 'Payment' | 'Service' | 'Booking' | 'Quality' | 'Contract' | 'Communication' | 'Other'
   createdAt: string
   updatedAt: string
   couple: {
@@ -82,7 +82,130 @@ const disputes: Dispute[] = [
     ],
     notes: 'Initial contact made with vendor. Awaiting response.',
   },
-  // Add more sample disputes...
+  {
+    id: 2,
+    title: 'Venue Booking Cancellation',
+    description: 'Vendor cancelled venue booking 2 weeks before wedding date.',
+    status: 'In Progress',
+    priority: 'High',
+    type: 'Booking',
+    createdAt: '2024-03-14T09:15:00',
+    updatedAt: '2024-03-14T09:15:00',
+    couple: {
+      name: 'Folake & Tunde',
+      email: 'folake@example.com',
+      phone: '+234 803 456 7890',
+    },
+    vendor: {
+      name: 'Grand Events Center',
+      email: 'grand@example.com',
+      category: 'Venue',
+      phone: '+234 804 567 8901',
+    },
+    amount: 1500000,
+    messages: [
+      {
+        id: 1,
+        sender: 'Couple',
+        message: 'The venue cancelled our booking due to "renovations" but we found out they double-booked.',
+        timestamp: '2024-03-14T09:15:00',
+      },
+    ],
+    notes: 'Venue claims renovation issues. Investigating alternative venues.',
+  },
+  {
+    id: 3,
+    title: 'Catering Service Quality',
+    description: 'Food quality and service did not meet agreed standards.',
+    status: 'Open',
+    priority: 'Medium',
+    type: 'Quality',
+    createdAt: '2024-03-13T14:20:00',
+    updatedAt: '2024-03-13T14:20:00',
+    couple: {
+      name: 'Aisha & Mohammed',
+      email: 'aisha@example.com',
+      phone: '+234 805 678 9012',
+    },
+    vendor: {
+      name: 'Taste of Nigeria Catering',
+      email: 'taste@example.com',
+      category: 'Catering',
+      phone: '+234 806 789 0123',
+    },
+    amount: 800000,
+    messages: [
+      {
+        id: 1,
+        sender: 'Couple',
+        message: 'The food was cold and some items were missing from the menu.',
+        timestamp: '2024-03-13T14:20:00',
+      },
+    ],
+    notes: 'Quality control issues reported. Vendor claims equipment malfunction.',
+  },
+  {
+    id: 4,
+    title: 'Contract Terms Dispute',
+    description: 'Disagreement over contract terms and deliverables.',
+    status: 'Open',
+    priority: 'Medium',
+    type: 'Contract',
+    createdAt: '2024-03-12T11:45:00',
+    updatedAt: '2024-03-12T11:45:00',
+    couple: {
+      name: 'Ngozi & Chukwu',
+      email: 'ngozi@example.com',
+      phone: '+234 807 890 1234',
+    },
+    vendor: {
+      name: 'Elegant Affairs Nigeria',
+      email: 'elegant@example.com',
+      category: 'Event Planning',
+      phone: '+234 808 901 2345',
+    },
+    amount: 2000000,
+    messages: [
+      {
+        id: 1,
+        sender: 'Couple',
+        message: 'The contract terms were changed without our knowledge.',
+        timestamp: '2024-03-12T11:45:00',
+      },
+    ],
+    notes: 'Contract review needed. Terms appear to have been modified.',
+  },
+  {
+    id: 5,
+    title: 'Vendor Communication Issues',
+    description: 'Vendor not responding to messages and calls.',
+    status: 'Open',
+    priority: 'Low',
+    type: 'Communication',
+    createdAt: '2024-03-11T16:30:00',
+    updatedAt: '2024-03-11T16:30:00',
+    couple: {
+      name: 'Yemi & Bola',
+      email: 'yemi@example.com',
+      phone: '+234 809 012 3456',
+    },
+    vendor: {
+      name: 'Royal Decorations',
+      email: 'royal@example.com',
+      category: 'Decorations',
+      phone: '+234 810 123 4567',
+    },
+    amount: 450000,
+    messages: [
+      {
+        id: 1,
+        sender: 'Couple',
+        message: 'We have been trying to reach the vendor for 3 days with no response.',
+        timestamp: '2024-03-11T16:30:00',
+      },
+    ],
+    notes: 'Vendor appears to be unresponsive. Attempting alternative contact methods.',
+  }
 ]
 
 const statusColors = {
@@ -102,6 +225,9 @@ const typeColors = {
   Payment: 'bg-[#EB1948]/10 text-[#EB1948]',
   Service: 'bg-[#ECEBA2] text-[#B52344]',
   Booking: 'bg-[#CCFDF2] text-[#00838F]',
+  Quality: 'bg-[#FFD700]/10 text-[#B8860B]',
+  Contract: 'bg-[#9370DB]/10 text-[#4B0082]',
+  Communication: 'bg-[#20B2AA]/10 text-[#008B8B]',
   Other: 'bg-gray-100 text-gray-600',
 }
 
@@ -223,6 +349,9 @@ export default function Disputes() {
                     <option value="Payment">Payment</option>
                     <option value="Service">Service</option>
                     <option value="Booking">Booking</option>
+                    <option value="Quality">Quality</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Communication">Communication</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -239,7 +368,12 @@ export default function Disputes() {
           <div className="lg:col-span-1">
             <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#00838F]/10">
               <div className="border-b border-[#00838F]/10 px-6 py-4">
-                <h2 className="text-lg font-semibold text-[#00838F]">Active Disputes</h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-[#00838F]">Active Disputes</h2>
+                  <span className="rounded-full bg-[#CCFDF2] px-2.5 py-0.5 text-xs font-medium text-[#00838F]">
+                    {filteredDisputes.length} disputes
+                  </span>
+                </div>
               </div>
               <div className="divide-y divide-[#00838F]/10">
                 {filteredDisputes.map((dispute) => (
@@ -250,23 +384,23 @@ export default function Disputes() {
                       selectedDispute?.id === dispute.id ? 'bg-[#CCFDF2]/20' : ''
                     }`}
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#CCFDF2]">
-                        <ExclamationTriangleIcon className="h-5 w-5 text-[#00838F]" />
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#CCFDF2]">
+                        <ExclamationTriangleIcon className="h-4 w-4 text-[#00838F]" />
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm font-medium text-[#00838F]">{dispute.title}</h3>
-                          <div className="flex items-center gap-2">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <h3 className="truncate text-sm font-medium text-[#00838F]">{dispute.title}</h3>
+                          <div className="flex items-center gap-1.5">
                             <span
-                              className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                              className={`inline-flex rounded-full px-1.5 py-0.5 text-xs font-medium ${
                                 typeColors[dispute.type]
                               }`}
                             >
                               {dispute.type}
                             </span>
                             <span
-                              className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                              className={`inline-flex rounded-full px-1.5 py-0.5 text-xs font-medium ${
                                 statusColors[dispute.status]
                               }`}
                             >
@@ -274,10 +408,15 @@ export default function Disputes() {
                             </span>
                           </div>
                         </div>
-                        <p className="mt-1 text-xs text-[#B52344] line-clamp-2">{dispute.description}</p>
-                        <div className="mt-2 flex items-center gap-4">
-                          <span className="text-xs text-[#00838F]">{dispute.couple.name}</span>
-                          <span className="text-xs text-[#B52344]">{dispute.vendor.name}</span>
+                        <div className="mt-1 flex items-center gap-2 text-xs text-[#B52344]">
+                          <span className="truncate">{dispute.couple.name}</span>
+                          <span>•</span>
+                          <span className="truncate">{dispute.vendor.name}</span>
+                        </div>
+                        <div className="mt-1 flex items-center gap-2 text-xs text-[#00838F]">
+                          <span>₦{dispute.amount?.toLocaleString()}</span>
+                          <span>•</span>
+                          <span>{new Date(dispute.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </div>
