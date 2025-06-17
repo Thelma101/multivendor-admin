@@ -88,14 +88,6 @@ const metrics: Metric[] = [
   },
   {
     id: 4,
-    title: 'Average Booking Value',
-    value: '₦1,234,000',
-    change: 8.2,
-    icon: ChartBarIcon,
-    description: 'Per wedding booking',
-  },
-  {
-    id: 5,
     title: 'Weddings This Month',
     value: '89',
     change: 15.4,
@@ -103,12 +95,12 @@ const metrics: Metric[] = [
     description: 'Scheduled weddings',
   },
   {
-    id: 6,
+    id: 5,
     title: 'Average Rating',
     value: '4.8',
     change: 2.1,
     icon: StarIcon,
-    description: 'Platform-wide rating',
+    description: 'Average vendor rating from couple reviews',
   },
 ]
 
