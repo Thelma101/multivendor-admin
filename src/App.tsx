@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
@@ -11,11 +12,14 @@ import CMS from './pages/CMS'
 import Reports from './pages/Reports'
 import Settings from './pages/Settings'
 import AdminUsers from './pages/AdminUsers'
+import TestPage from './pages/TestPage'
 
 export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Sidebar open={false} setOpen={() => {}} />
+    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10">
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <div className="lg:pl-64">
         <main className="py-10">
           <div className="px-4 sm:px-6 lg:px-8">
@@ -31,6 +35,7 @@ export default function App() {
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/admin-users" element={<AdminUsers />} />
+              <Route path="/test" element={<TestPage />} />
             </Routes>
           </div>
         </main>

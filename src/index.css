@@ -2,6 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix input backgrounds and other form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  @apply bg-white !important;
+}
+
+/* Remove dark backgrounds from search inputs */
+input[type="search"] {
+  @apply bg-white !important;
+}
+
+/* Fix any other form elements that might have dark backgrounds */
+.form-input,
+.form-textarea,
+.form-select,
+.form-multiselect {
+  @apply bg-white !important;
+}
+
+/* Fix focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  @apply ring-[#00838F] border-[#00838F] !important;
+}
+
+/* Fix placeholder colors */
+::placeholder {
+  @apply text-gray-400 !important;
+}
+
+/* Fix disabled states */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  @apply bg-gray-50 !important;
+}
+
 @layer base {
   html {
     font-family: Inter, system-ui, sans-serif;
