@@ -267,7 +267,7 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-6 py-8">
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {metrics.map((metric) => (
             <div
               key={metric.id}
