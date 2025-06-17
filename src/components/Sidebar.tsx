@@ -12,6 +12,7 @@ import {
   CogIcon,
   UserGroupIcon,
   SwatchIcon,
+  Bars3Icon,
 } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 
@@ -81,9 +82,24 @@ interface SidebarProps {
 export default function Sidebar({ open, setOpen }: SidebarProps) {
   return (
     <>
+      {/* Mobile menu button */}
+      <div className="sticky top-0 z-[9999] flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:hidden">
+        <button
+          type="button"
+          className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+          onClick={() => setOpen(true)}
+        >
+          <span className="sr-only">Open sidebar</span>
+          <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+        </button>
+        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+          <div className="flex flex-1"></div>
+        </div>
+      </div>
+
       {/* Mobile sidebar */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setOpen}>
+        <Dialog as="div" className="relative z-[9998] lg:hidden" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -123,10 +139,11 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                             <li key={item.name}>
                               <Link
                                 to={item.href}
-                                className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                                className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-[#00838F] hover:bg-[#CCFDF2]"
+                                onClick={() => setOpen(false)}
                               >
                                 <item.icon
-                                  className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                                  className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-[#00838F]"
                                   aria-hidden="true"
                                 />
                                 {item.name}
@@ -162,10 +179,10 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                     <li key={item.name}>
                       <Link
                         to={item.href}
-                        className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                        className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-[#00838F] hover:bg-[#CCFDF2]"
                       >
                         <item.icon
-                          className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                          className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-[#00838F]"
                           aria-hidden="true"
                         />
                         {item.name}
