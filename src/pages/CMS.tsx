@@ -110,11 +110,11 @@ export default function CMS() {
   }
 
   return (
-    <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10 p-4 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Content Management</h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#00838F]">Content Management</h1>
+          <p className="mt-2 text-sm text-[#B52344]">
             Manage website content, blog posts, and marketing materials.
           </p>
         </div>
@@ -124,11 +124,11 @@ export default function CMS() {
           <div className="flex flex-col sm:flex-row flex-1 gap-4">
             <div className="relative flex-1">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                <MagnifyingGlassIcon className="h-5 w-5 text-[#00838F]" aria-hidden="true" />
               </div>
               <input
                 type="text"
-                className="block w-full rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-[#00838F]/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#00838F] sm:text-sm sm:leading-6"
                 placeholder="Search content..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -164,14 +164,14 @@ export default function CMS() {
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               type="button"
-              className="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-[#00838F] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#00838F]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00838F]"
             >
               <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
               New Post
             </button>
             <button
               type="button"
-              className="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              className="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-[#CCFDF2] px-4 py-2 text-sm font-semibold text-[#00838F] shadow-sm hover:bg-[#CCFDF2]/80"
             >
               <PhotoIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
               Upload Media
@@ -184,53 +184,36 @@ export default function CMS() {
           {filteredContents.map((content) => (
             <div
               key={content.id}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-[#00838F]/20 bg-white shadow-sm transition-all hover:shadow-md"
             >
               {/* Content Preview */}
-              <div className="aspect-w-16 aspect-h-9 bg-gray-100">
+              <div className="aspect-w-16 aspect-h-9 bg-[#CCFDF2]">
                 {content.type === 'Blog Post' ? (
-                  <img
-                    src={content.image}
-                    alt={content.title}
-                    className="h-full w-full object-cover"
-                  />
+                  <DocumentTextIcon className="h-full w-full p-8 text-[#00838F]" />
                 ) : content.type === 'Image' ? (
-                  <img
-                    src={content.content}
-                    alt={content.title}
-                    className="h-full w-full object-cover"
-                  />
+                  <PhotoIcon className="h-full w-full p-8 text-[#00838F]" />
                 ) : (
-                  <div className="relative h-full w-full">
-                    <img
-                      src={content.image}
-                      alt={content.title}
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                      <VideoCameraIcon className="h-12 w-12 text-white" aria-hidden="true" />
-                    </div>
-                  </div>
+                  <VideoCameraIcon className="h-full w-full p-8 text-[#00838F]" />
                 )}
               </div>
 
               {/* Content Info */}
               <div className="flex flex-1 flex-col justify-between p-4 sm:p-6">
                 <div className="flex-1">
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 line-clamp-2">{content.title}</h3>
-                  <p className="mt-1 text-sm text-gray-600">{content.category}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-[#00838F] line-clamp-2">{content.title}</h3>
+                  <p className="mt-1 text-sm text-[#B52344]">{content.category}</p>
                   
                   {/* Meta Info */}
                   <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
-                    <span className="text-gray-600">
+                    <span className="text-[#00838F]">
                       By {content.author}
                     </span>
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
                         content.status === 'Published'
-                          ? 'bg-green-100 text-green-800'
+                          ? 'bg-[#CCFDF2] text-[#00838F]'
                           : content.status === 'Draft'
-                          ? 'bg-yellow-100 text-yellow-800'
+                          ? 'bg-[#ECEBA2] text-[#B52344]'
                           : 'bg-gray-100 text-gray-800'
                       }`}
                     >
@@ -241,7 +224,7 @@ export default function CMS() {
 
                 {/* Actions */}
                 <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-[#00838F]">
                     {new Date(content.date).toLocaleDateString()}
                   </span>
                   <div className="flex gap-2">
@@ -251,13 +234,13 @@ export default function CMS() {
                         setSelectedContent(content)
                         setIsCMSModalOpen(true)
                       }}
-                      className="rounded-lg bg-gray-100 p-2 text-gray-600 hover:bg-gray-200"
+                      className="rounded-lg bg-[#ECEBA2] p-2 text-[#B52344] hover:bg-[#ECEBA2]/80"
                     >
                       <PencilIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <button
                       type="button"
-                      className="rounded-lg bg-red-50 p-2 text-red-600 hover:bg-red-100"
+                      className="rounded-lg bg-[#EB1948]/10 p-2 text-[#EB1948] hover:bg-[#EB1948]/20"
                     >
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>

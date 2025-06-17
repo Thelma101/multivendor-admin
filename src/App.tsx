@@ -18,7 +18,7 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10">
+    <div className="min-h-screen bg-gradient-to-br from-[#fff] to-[#fff]">
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <div className="lg:pl-64">
         <main className="py-10">
