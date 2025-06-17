@@ -224,9 +224,9 @@ export default function Dashboard() {
   const [selectedChartPeriod, setSelectedChartPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10 pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-[#CCFDF2] to-[#00838F]/10">
       {/* Header Section */}
-      <div className="border-b border-[#00838F]/10 bg-gradient-to-r from-[#CCFDF2] to-white px-4 sm:px-6 py-6 sm:py-8">
+      <div className="border-b border-[#00838F]/10 bg-gradient-to-r from-[#CCFDF2] to-white px-4 sm:px-6 py-6 sm:py-8 mt-16">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>

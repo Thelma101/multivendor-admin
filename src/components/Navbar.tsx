@@ -154,7 +154,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden absolute w-full bg-white shadow-lg">
+          <Disclosure.Panel className="sm:hidden fixed top-16 left-0 right-0 w-full bg-white shadow-lg z-[99]">
             <div className="space-y-1 pb-3 pt-2">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href
