@@ -130,7 +130,8 @@ export default function Navbar() {
                   </Transition>
                 </Menu>
               </div>
-              <div className="flex items-center sm:hidden">
+              {/* Mobile menu button and notifications */}
+              <div className="flex items-center gap-2 sm:hidden">
                 <button
                   type="button"
                   className="relative rounded-full bg-white p-1 text-[#00838F] hover:text-[#00838F]/80 focus:outline-none focus:ring-2 focus:ring-[#00838F] focus:ring-offset-2"
@@ -141,7 +142,7 @@ export default function Navbar() {
                     3
                   </span>
                 </button>
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-[#00838F] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F]">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-[#00838F] hover:bg-[#CCFDF2] hover:text-[#00838F] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#00838F] border border-[#00838F]/20">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
